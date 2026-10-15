@@ -1,4 +1,3 @@
-// src/hooks/useOtrosPlatos.ts
 import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../constants/api';
 
@@ -9,7 +8,7 @@ export const useOtrosPlatos = (shouldFetch: boolean) => {
   useEffect(() => {
     let cancel = false;
     const cargar = async () => {
-      if (!shouldFetch) return; // Solo busca si está en la pestaña OTRO
+      if (!shouldFetch) return;
       
       setLoadingOtros(true);
       try {

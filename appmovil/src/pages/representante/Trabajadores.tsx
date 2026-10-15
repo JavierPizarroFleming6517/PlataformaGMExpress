@@ -4,12 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { usePerfil } from '../../hooks/usePerfil';
 import { useTrabajadores } from '../../hooks/useTrabajadores';
 
-// NUEVOS HOOKS
 import { useVincularTrabajador } from '../../hooks/useVincularTrabajador';
 import { useBloqueoDias } from '../../hooks/useBloqueoDias';
 
-// --- Componente TarjetaTrabajadorListado ---
-// (Podrías mover esto a src/components/ en el futuro si quieres el archivo aún más limpio)
 const TarjetaTrabajadorListado = ({ t }: { t: any }) => {
   const [diasBloqueados, setDiasBloqueados] = useState<number[]>(t.diasBloqueados || []);
   const { toggleDiaBloqueado, loadingDia } = useBloqueoDias();
@@ -68,13 +65,11 @@ const TarjetaTrabajadorListado = ({ t }: { t: any }) => {
   );
 };
 
-// --- Componente Principal ---
 const Trabajadores: React.FC = () => {
   const navigate = useNavigate();
   const { empresaId, empresaNombre } = usePerfil();
   const { trabajadores, cargando } = useTrabajadores(empresaId);
 
-  // Hook personalizado de vinculación
   const { 
     buscando, vinculando, trabajadorEncontrado, errorBusqueda, 
     buscarTrabajador, vincularTrabajador, limpiarBusqueda 
@@ -152,7 +147,7 @@ const Trabajadores: React.FC = () => {
         )}
       </main>
 
-      {/* Modal Agregar Trabajador */}
+      
       {isModalOpen && (
         <div className="fixed inset-0 bg-[#1d2d50]/50 backdrop-blur-sm z-50 flex items-center justify-center p-6 animate-in fade-in duration-200">
           <div className="bg-white rounded-[2rem] p-6 w-full max-w-sm shadow-2xl relative">

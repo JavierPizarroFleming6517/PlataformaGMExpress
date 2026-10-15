@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import db from '../../../../lib/db'; // Ajusta la ruta a tu lib/db
+import db from '../../../../lib/db';
 
 export async function POST(req: Request) {
   try {
@@ -9,7 +9,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Faltan datos requeridos' }, { status: 400 });
     }
 
-    // Actualizamos el usuario para asignarle la empresa
     await db.usuario.update({
       where: { id: usuarioId },
       data: { empresaId: Number(empresaId) }

@@ -16,9 +16,8 @@ export async function GET(request: Request) {
   }
 
   try {
-    let fechaBase = new Date(); // Asumimos hoy por defecto
+    let fechaBase = new Date();
     
-    // 🔥 NUEVA PROTECCIÓN: Verificamos que fechaStr exista Y que no sea una palabra basura (ej. "REPRESENTANTE")
     if (fechaStr && !isNaN(Date.parse(fechaStr))) {
       const safeDate = fechaStr.includes('T') ? fechaStr : `${fechaStr}T12:00:00`;
       fechaBase = new Date(safeDate);
@@ -38,7 +37,6 @@ export async function GET(request: Request) {
       select: {
         id: true,
         nombre: true,
-        // 👇 AQUÍ ESTÁ LA MAGIA: Le pedimos a Prisma que traiga el arreglo de días
         diasBloqueados: true, 
         pedidos: {
           where: { fecha: { gte: inicioSemana, lte: finSemana } },
@@ -77,7 +75,6 @@ export async function GET(request: Request) {
         return {
           id: usuario.id,
           nombre: usuario.nombre,
-          // 👇 Y AQUÍ se lo enviamos al frontend
           diasBloqueados: usuario.diasBloqueados, 
           pedidos: pedidosFormateados
         };

@@ -29,10 +29,10 @@ export function Sidebar() {
 
   return (
     <aside className="fixed inset-y-0 left-0 z-50 flex h-full w-64 flex-col bg-[#1B2C56] border-r border-slate-800 shadow-2xl">
-      {/* Cabecera / Logo */}
+      
       <div className="flex h-16 items-center px-6 border-b border-white/10 bg-[#122042]">
         <div className="flex items-center gap-3">
-          {/* AQUÍ IRÁ EL LOGO: Cuando tengas tiempo, cambia este div por: <img src="/logo.png" className="h-8 w-8 object-contain" alt="Logo" /> */}
+          
           <div className="flex h-8 w-8 items-center justify-center rounded bg-[#75AA46] shadow-sm">
             <UtensilsCrossed className="h-5 w-5 text-white" />
           </div>
@@ -40,7 +40,7 @@ export function Sidebar() {
         </div>
       </div>
 
-      {/* Navegación */}
+      
       <nav className="flex-1 space-y-1 px-3 py-6 overflow-y-auto">
         <div className="mb-4 px-3 text-[11px] font-bold uppercase tracking-widest text-slate-400">
           Menú Principal
@@ -70,7 +70,7 @@ export function Sidebar() {
         })}
       </nav>
 
-      {/* Footer Logístico - Toque profesional */}
+      
       <div className="p-4 border-t border-white/10">
          <div className="flex items-center gap-3 px-3 py-2 rounded-md bg-white/5 border border-white/5">
             <div className="h-2 w-2 rounded-full bg-green-400 animate-pulse"></div>

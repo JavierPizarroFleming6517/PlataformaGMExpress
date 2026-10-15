@@ -15,10 +15,9 @@ export default defineConfig({
   },
   server: {
     allowedHosts: ['collide-imaginary-thermos.ngrok-free.dev'],
-    // 🔥 Agregamos el Proxy
     proxy: {
       '/api': {
-        target: 'http://localhost:3000', // Apunta a tu Next.js
+        target: 'http://localhost:3000',
         changeOrigin: true,
       }
     }

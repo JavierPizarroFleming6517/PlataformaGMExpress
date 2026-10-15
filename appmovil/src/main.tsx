@@ -6,10 +6,6 @@ import { ClerkProvider } from '@clerk/clerk-react';
 import { esES } from '@clerk/localizations';
 import { CLERK_CONFIG } from './constants/clerk';
 
-/**
- * Validate Clerk publishable key exists before rendering.
- * This key is required for Clerk authentication to function.
- */
 const publishableKey = CLERK_CONFIG.publishableKey;
 if (!publishableKey) {
   throw new Error('Missing Clerk publishable key. Please set VITE_CLERK_PUBLISHABLE_KEY environment variable.');

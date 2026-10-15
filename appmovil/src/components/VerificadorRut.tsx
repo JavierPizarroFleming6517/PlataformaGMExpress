@@ -1,9 +1,7 @@
-// src/components/VerificadorRut.tsx
 import React, { useState } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { useVerificadorRut } from '../hooks/useVerificadorRut';
 
-// 🔥 Función matemática pura para validar que el RUT sea real
 const validarRutChileno = (rutCompleto: string) => {
   const limpio = rutCompleto.replace(/[^0-9kK]/g, '').toUpperCase();
   if (limpio.length < 8) return false;
@@ -30,10 +28,8 @@ export const VerificadorRut: React.FC = () => {
   const { user } = useUser();
   const [inputRut, setInputRut] = useState('');
   
-  // 🔥 Importamos la lógica desde nuestro nuevo hook
   const { requiereRut, guardandoRut, guardarRutAPI } = useVerificadorRut(user?.id);
 
-  // Formateador visual en tiempo real
   const manejarCambioRut = (e: React.ChangeEvent<HTMLInputElement>) => {
     let valor = e.target.value.replace(/[^0-9kK]/g, '').toUpperCase();
     if (valor.length > 1) {
@@ -44,21 +40,17 @@ export const VerificadorRut: React.FC = () => {
     setInputRut(valor);
   };
 
-  // Manejador del botón
   const manejarGuardado = async () => {
     if (!validarRutChileno(inputRut)) return alert("Ingresa un RUT válido");
     
-    // Llamamos al hook
     const resultado = await guardarRutAPI(inputRut);
     if (!resultado.success) {
       alert(resultado.error);
     }
   };
 
-  // Si no requiere RUT, no dibujamos nada
   if (!requiereRut) return null;
 
-  // Evaluamos en vivo si el RUT es matemáticamente válido
   const esValido = validarRutChileno(inputRut);
 
   return (

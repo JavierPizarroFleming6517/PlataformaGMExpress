@@ -59,7 +59,6 @@ async function obtenerMensajeError(response: Response): Promise<string> {
       return data.error
     }
   } catch {
-    // La respuesta no contenía JSON válido.
   }
 
   return "No se pudo descargar el histórico"
@@ -166,7 +165,7 @@ export function GestionPedidosClient({ semana }: GestionPedidosClientProps) {
 
   return (
     <div className="mx-auto max-w-[1600px] space-y-6 p-6 bg-slate-50 min-h-screen">
-      {/* Header Corporativo */}
+      
       <header className="border-b border-slate-200 pb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -178,7 +177,7 @@ export function GestionPedidosClient({ semana }: GestionPedidosClientProps) {
         </div>
       </header>
 
-      {/* Tarjetas KPI Superiores */}
+      
       <section className="grid gap-4 md:grid-cols-3">
         <Card className="rounded-md border-slate-200 bg-white shadow-sm overflow-hidden">
           <div className="h-1 w-full bg-[#75AA46]"></div>
@@ -241,7 +240,7 @@ export function GestionPedidosClient({ semana }: GestionPedidosClientProps) {
         </Card>
       )}
 
-      {/* Tabs y Contenido Diario */}
+      
       <Tabs
         value={activeTab}
         onValueChange={(value) => {
@@ -288,7 +287,7 @@ export function GestionPedidosClient({ semana }: GestionPedidosClientProps) {
               value={dia.fechaISO}
               className="space-y-5 outline-none animate-in fade-in-50"
             >
-            {/* Pipeline del Día */}
+            
             <Card className="rounded-md border-slate-200 bg-white shadow-sm border-l-4 border-l-[#1B2C56]">
               <CardContent className="flex flex-col sm:flex-row items-center justify-between p-5 gap-4">
                 <div className="flex items-center w-full sm:w-auto">
@@ -309,7 +308,7 @@ export function GestionPedidosClient({ semana }: GestionPedidosClientProps) {
               </CardContent>
             </Card>
 
-            {/* Listado de Empresas */}
+            
             {dia.empresas.length === 0 ? (
               <Card className="rounded-md border border-dashed border-slate-300 bg-slate-50 shadow-sm">
                 <CardContent className="p-6 text-center">
@@ -409,7 +408,7 @@ export function GestionPedidosClient({ semana }: GestionPedidosClientProps) {
               </div>
             )}
 
-            {/* Centro de Exportación */}
+            
             <Card className="rounded-md border border-slate-200 bg-white shadow-sm mt-6">
               <CardContent className="flex flex-col lg:flex-row items-start lg:items-center justify-between p-5 gap-5">
                 <div className="flex-1">

@@ -1,4 +1,3 @@
-// src/hooks/useBloqueoDias.ts
 import { useState } from 'react';
 import { API_BASE_URL } from '../constants/api';
 
@@ -15,7 +14,7 @@ export const useBloqueoDias = () => {
       });
       if (res.ok) {
         const data = await res.json();
-        onSuccess(data.diasBloqueados); // Actualiza la UI
+        onSuccess(data.diasBloqueados);
       }
     } catch (e) {
       console.error("Error al modificar bloqueo:", e);

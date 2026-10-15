@@ -1,4 +1,3 @@
-// HomePageTrabajador.tsx
 import React, { useState, useEffect, useMemo } from 'react';
 import { Clock, Menu, ChevronDown, ChevronUp, X, CalendarOff, Lock, Check } from 'lucide-react';
 import { THEME, DEADLINE_HOUR } from '../../constants/theme';
@@ -10,7 +9,6 @@ import LoadingView from '../../components/LoadingView';
 import { Sidebar } from '../../components/Sidebar';
 import { VerificadorRut } from '../../components/VerificadorRut';
 
-// Hooks
 import { useCountdown } from '../../hooks/useCountdown';
 import { useMenuAPI } from '../../hooks/useMenuAPI';
 import { usePedidos } from '../../hooks/usePedidos';
@@ -19,7 +17,6 @@ import { useHistorial } from '../../hooks/useHistorial';
 import { usePerfilTrabajador } from '../../hooks/usePerfilTrabajador';
 import { useOtrosPlatos } from '../../hooks/useOtrosPlatos';
 
-// Nuevos Componentes
 import { MenuSkeleton } from '../../components/MenuSkeleton';
 import { CalendarioSemanal } from '../../components/CalendarioSemanal';
 import { ResumenPedido } from '../../components/ResumenPedido';
@@ -117,7 +114,6 @@ const HomePageTrabajador: React.FC = () => {
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
-  // --- LLAMADA A HOOKS ---
   const { diasBloqueadosAdmin, convenio } = usePerfilTrabajador(user?.id);
   const { otrosPlatos, loadingOtros } = useOtrosPlatos(activeTab === 'OTRO' || activeTab === 'PERSONALIZADO');
   const { timeRemaining } = useCountdown(DEADLINE_HOUR);
@@ -127,7 +123,6 @@ const HomePageTrabajador: React.FC = () => {
 
   useEffect(() => { if (user?.id) cargarHistorial(); }, [user?.id, cargarHistorial]);
 
-  // ✅ BLINDAJE ANTICRASH: Si historial o fecha viene null, no se rompe
   const fechasBloqueadas = useMemo(() => new Set((historial || []).map((p: any) => String(p?.fecha || '').split('T')[0])), [historial]);
   
   const isSelectedDateToday = diasSemanaArray?.[diaSeleccionadoIdx]?.esHoy ?? false;
@@ -138,7 +133,6 @@ const HomePageTrabajador: React.FC = () => {
   const fechaSeleccionadaTienePedido = fechasBloqueadas.has(fechaSeleccionadaISO || '');
   const bloquearUI = (isSelectedDateToday && isDeadlinePassed) || (fechaBloqueada && !fechaSeleccionadaTienePedido);
 
-  // ✅ BLINDAJE ANTICRASH: Iteración segura
   const todosBloqueados = useMemo(() => {
     return (diasSemanaArray || []).every(dia => {
       if (!dia?.iso) return false;
@@ -169,7 +163,6 @@ const HomePageTrabajador: React.FC = () => {
     setAutoSelected(true); 
   }, [autoSelected, diasSemanaArray, cargandoHistorial, cargandoVerificacion, diasBloqueadosAdmin, fechasBloqueadas, setDiaSeleccionadoIdx]);
 
-  // --- VARIABLES DE REGLAS ---
   const fondoObj = (menuHoy?.fondos || []).find((p: any) => p?.id === pedido.fondoId);
   const isHipocalorico = fondoObj?.tipo === 'HIPOCALORICO';
   const isPlatoUnicoOrHipocalorico = fondoObj?.tipo === 'PLATO_UNICO' || isHipocalorico;
@@ -203,7 +196,6 @@ const HomePageTrabajador: React.FC = () => {
     setTipoOtroSeleccionado(null);
   }, [fechaSeleccionadaISO]);
 
-  // ✅ BLINDAJE ANTICRASH: Verificación de String seguro
   const isPedidoDelDiaSeleccionado = String(pedidoExistente?.fecha || '').startsWith(fechaSeleccionadaISO || '');
   const pedidoSeguro = (isPedidoDelDiaSeleccionado && !cargandoVerificacion) ? pedidoExistente : null;
 
@@ -268,7 +260,6 @@ const HomePageTrabajador: React.FC = () => {
   const seleccionarPlato = (categoria: 'fondoId' | 'postreId' | 'jugoId', id: number) => {
     if (bloquearUI) return;
     
-    // CASO JUGO/BEBIDA
     if (categoria === 'jugoId') {
       const selectedPlato = (otrosPlatos || []).find((p: any) => p?.id === id);
       setPedido(prev => {
@@ -302,7 +293,6 @@ const HomePageTrabajador: React.FC = () => {
            newState.guarnicionId = null;
         }
         
-        // Limpiamos ensaladas si el nuevo fondo es hipocalórico
         if (!isDeselecting && sel?.tipo === 'HIPOCALORICO') {
           const sopasIds = (menuHoy?.entradas || []).filter((e:any) => {
              const n = String(e?.nombre || '').toLowerCase();
@@ -339,7 +329,7 @@ const HomePageTrabajador: React.FC = () => {
   const seleccionarEntrada = (plato: any) => {
     if (bloquearUI || penalizaEntradaPostre || pedido.isDoblePostre) return;
     
-    const nombre = String(plato?.nombre || '').toLowerCase(); // ✅ SEGURO
+    const nombre = String(plato?.nombre || '').toLowerCase();
     const isSopa = nombre.includes('sopa') || nombre.includes('crema'); 
     const isSurtida = nombre.includes('surtida');
     const isCurrentlySelected = pedido.entradasIds.includes(plato.id);
@@ -351,7 +341,7 @@ const HomePageTrabajador: React.FC = () => {
       if (isCurrentlySelected) return { ...prev, entradasIds: actuales.filter(id => id !== plato.id) };
       if (isSopa || isSurtida) return { ...prev, entradasIds: [plato.id] };
       const idsExclusivos = (menuHoy?.entradas || []).filter((p: any) => {
-         const n = String(p?.nombre || '').toLowerCase(); // ✅ SEGURO
+         const n = String(p?.nombre || '').toLowerCase();
          return n.includes('sopa') || n.includes('crema') || n.includes('surtida'); 
       }).map((p: any) => p.id);
       const nuevas = actuales.filter(id => !idsExclusivos.includes(id));
@@ -402,7 +392,6 @@ const HomePageTrabajador: React.FC = () => {
   };
 
   const manejarModificarPedido = () => {
-    // ✅ BLINDAJE ANTICRASH
     const resumen = pedidoExistente?.resumen || [];
     const entradas = resumen.filter((r:any)=>r?.categoria==='ENTRADA').map((e:any) => e.platoId);
     const f = resumen.find((r:any)=>r?.categoria==='FONDO');
@@ -579,7 +568,6 @@ const HomePageTrabajador: React.FC = () => {
                           {platos.map((plato: any) => {
                             const isPlatoSelected = cat === 'ENTRADA' ? pedido.entradasIds.includes(plato.id) : pedido[(cat.toLowerCase() + 'Id') as 'fondoId' | 'postreId' | 'jugoId'] === plato.id;
                             
-                            // ✅ SEGURO: Previene crash si no tiene nombre
                             const nombre = String(plato?.nombre || '').toLowerCase();
                             const isDisabled = isSeccionBloqueada || (cat === 'ENTRADA' && isHipocalorico && !nombre.includes('sopa') && !nombre.includes('crema'));
 

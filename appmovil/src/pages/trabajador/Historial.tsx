@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Utensils, ArrowLeft, Clock, Info } from 'lucide-react'; // Añadido Info icon
+import { Utensils, ArrowLeft, Clock, Info } from 'lucide-react';
 import { useUser } from '@clerk/clerk-react';
 import { useHistorial } from '../../hooks/useHistorial';
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +37,6 @@ export const Historial: React.FC = () => {
         ) : (
           <div className="space-y-4 max-w-md mx-auto">
             {historial.map((ped: any) => {
-              // VALIDACIÓN: Si el pedido no tiene detalles, no mostramos la tarjeta
               if (!ped.detalles || ped.detalles.length === 0) {
                 return (
                   <div key={ped.id} className="flex items-center gap-2 text-xs text-gray-400 p-3 bg-gray-100/50 rounded-xl border border-gray-100">
@@ -47,7 +46,6 @@ export const Historial: React.FC = () => {
                 );
               }
 
-              // Renderizado normal de la tarjeta si hay detalles
               return (
                 <div key={ped.id} className="bg-white p-5 rounded-[2.5rem] border border-gray-100 shadow-sm">
                   <div className="flex justify-between items-center mb-4 pb-3 border-b border-gray-50">

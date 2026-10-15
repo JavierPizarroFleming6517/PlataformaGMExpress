@@ -33,17 +33,15 @@ export async function POST(req: Request) {
       "svix-signature": svix_signature,
     }) as WebhookEvent;
   } catch (err) {
-    console.error('❌ Error verificando el webhook de Clerk:', err);
+    console.error('Error verificando el webhook de Clerk:', err);
     return new Response('Error de seguridad', { status: 400 });
   }
 
   const eventType = evt.type;
 
   if (eventType === 'user.created' || eventType === 'user.updated') {
-    // 🔥 Separamos los datos exactos que vienen de Clerk
     const { id, first_name, last_name, username } = evt.data;
     
-    // Si el usuario no tiene 'username' en Clerk, usamos su primer nombre como respaldo
     const nick = username || first_name || 'Nuevo Usuario';
 
     try {
@@ -52,7 +50,7 @@ export async function POST(req: Request) {
         update: { 
           nombre: first_name || null,
           apellido: last_name || null,
-          nombreUsuario: nick // Actualizamos el nick si cambia
+          nombreUsuario: nick
         },
         create: {
           id: id,
@@ -63,9 +61,9 @@ export async function POST(req: Request) {
           empresaId: 1, 
         }
       });
-      console.log(`✅ Usuario ${id} sincronizado exitosamente.`);
+      console.log(`Usuario ${id} sincronizado exitosamente.`);
     } catch (error) {
-      console.error('❌ Error sincronizando usuario:', error);
+      console.error('Error sincronizando usuario:', error);
       return new Response('Error de base de datos', { status: 500 });
     }
   }
@@ -75,7 +73,7 @@ export async function POST(req: Request) {
     try {
       if (id) {
         await db.usuario.delete({ where: { id: id } });
-        console.log(`🗑️ Usuario ${id} eliminado.`);
+        console.log(`Usuario ${id} eliminado.`);
       }
     } catch (error) {
       console.log('El usuario no existía o ya fue eliminado.');

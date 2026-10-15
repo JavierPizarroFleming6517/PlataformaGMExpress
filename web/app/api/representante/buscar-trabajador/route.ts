@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import db from '../../../../lib/db'; // Ajusta la ruta a tu lib/db según corresponda
+import db from '../../../../lib/db';
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -10,7 +10,6 @@ export async function GET(req: Request) {
   }
 
   try {
-    // Buscamos al usuario por su RUT
     const usuario = await db.usuario.findUnique({
       where: { rut: rut }
     });
@@ -23,7 +22,6 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'Este usuario ya está vinculado a una empresa' }, { status: 400 });
     }
 
-    // Si todo está bien, devolvemos los datos básicos
     return NextResponse.json({
       id: usuario.id,
       nombre: usuario.nombre || usuario.nombreUsuario,

@@ -142,14 +142,12 @@ export async function POST(request: Request) {
   try {
     const body = await request.json() as PedidoRequestBody;
     
-    // 🔥 CAMBIO: Ahora recibimos 'jugoId' también
     const { usuarioId, entradaId, entradasIds, fondoId, postreId, jugoId, guarnicionId, fecha, items } = body;
 
     if (!usuarioId) {
       return NextResponse.json({ error: 'Falta usuarioId' }, { status: 400 });
     }
 
-    // El flujo clásico solo requiere fondoId. El jugo es opcional (no aplica en menú del día).
     const fondoIdNormalizado = toPositiveInteger(fondoId);
     const postreIdNormalizado = toPositiveInteger(postreId);
     const jugoIdNormalizado = toPositiveInteger(jugoId);
@@ -234,26 +232,21 @@ export async function POST(request: Request) {
       },
     });
 
-    // 🔥 ARMAMOS EL ARREGLO DE DETALLES DINÁMICAMENTE según el flujo usado
     let detallesData: DetallePedidoInput[] = [];
 
     if (usingClassicFlow) {
-      // 1. Agregamos las entradas SOLO si existen y no están vacías
       if (entradasNormalizadas.ids.length > 0) {
         detallesData.push(...entradasNormalizadas.ids.map((id) => ({ platoId: id })));
       }
       
-      // 2. Siempre agregamos el fondo (ya validamos que existe)
       if (fondoIdNormalizado) {
         detallesData.push({ platoId: fondoIdNormalizado, guarnicionId: guarnicionId ?? null });
       }
 
-      // 3. Agregamos el postre SOLO si existe
       if (postreIdNormalizado) {
         detallesData.push({ platoId: postreIdNormalizado });
       }
 
-      // 4. Siempre agregamos el Jugo/Bebida
       if (jugoIdNormalizado) {
         detallesData.push({ platoId: jugoIdNormalizado });
       }
@@ -263,10 +256,8 @@ export async function POST(request: Request) {
 
     if (pedidoExistente) {
       await db.$transaction(async (tx) => {
-        // Borramos los detalles antiguos
         await tx.detallePedido.deleteMany({ where: { pedidoId: pedidoExistente.id } });
         
-        // Creamos los nuevos detalles mapeando el id del pedido
         await tx.detallePedido.createMany({
           data: detallesData.map(detalle => ({
             pedidoId: pedidoExistente.id,
@@ -285,7 +276,6 @@ export async function POST(request: Request) {
         empresaId: usuario.empresaId,
         estado: 'PENDIENTE',
         detalles: {
-          // Prisma usa 'create' con un arreglo directamente
           create: detallesData,
         },
       },

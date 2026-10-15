@@ -10,23 +10,19 @@ export default async function AdminLayout({
 }) {
   const { userId } = await auth();
 
-  // Si no está logueado, lo mandamos al login
   if (!userId) {
     redirect('/auth/login');
   }
 
-  // 🔥 EL CAMBIO ESTÁ AQUÍ: Buscamos por 'id' en lugar de 'clerkId'
   const usuarioDB = await db.usuario.findUnique({
     where: { id: userId }, 
     select: { rol: true }
   });
 
-  // 🚨 Si NO es administrador, lo expulsamos del panel
   if (usuarioDB?.rol !== 'ADMIN') {
     redirect('/acceso-denegado'); 
   }
 
-  // Si es ADMIN, lo dejamos ver el contenido
   return (
     <>
       <Sidebar />

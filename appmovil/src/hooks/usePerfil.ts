@@ -39,7 +39,7 @@ export const usePerfil = () => {
     };
 
     obtenerPerfil();
-  }, [user?.id, isLoaded]); // 🔥 Optimizado por ID
+  }, [user?.id, isLoaded]);
 
   return { rol, empresaId, empresaNombre, cargandoRol };
 };

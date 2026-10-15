@@ -1,7 +1,6 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // 🔥 ESTO IGNORA LOS ERRORES DE TYPESCRIPT AL SUBIR A PRODUCCIÓN
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -10,7 +9,6 @@ const nextConfig: NextConfig = {
     root: __dirname,
   },
 
-  // Permite que el emulador Android y ngrok accedan a los recursos de dev de Next.js
   allowedDevOrigins: [
     '192.168.1.25',
     'collide-imaginary-thermos.ngrok-free.dev' 
@@ -30,7 +28,7 @@ const nextConfig: NextConfig = {
       {
         source: '/api/:path*',
         headers: [
-          { key: 'Access-Control-Allow-Origin', value: '*' }, // En el futuro lo cambias por la URL de tu app
+          { key: 'Access-Control-Allow-Origin', value: '*' },
           { key: 'Access-Control-Allow-Methods', value: 'GET, POST, PUT, DELETE, OPTIONS' },
           { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization' },
         ],

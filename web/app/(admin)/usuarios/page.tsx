@@ -57,7 +57,7 @@ export default function UsuariosAppPage() {
 
   return (
     <div className="mx-auto max-w-[1600px] space-y-6 p-6 bg-slate-50 min-h-screen">
-      {/* Header Corporativo */}
+      
       <header className="border-b border-slate-200 pb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -80,7 +80,7 @@ export default function UsuariosAppPage() {
         </Button>
       </header>
 
-      {/* Tarjetas KPI */}
+      
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card className="rounded-md border-slate-200 bg-white shadow-sm overflow-hidden flex flex-col">
           <div className="h-1 w-full bg-[#1B2C56]"></div>
@@ -135,7 +135,7 @@ export default function UsuariosAppPage() {
         </Card>
       </div>
 
-      {/* Tabla de Directorio */}
+      
       <Card className="overflow-hidden rounded-md border-slate-200 bg-white shadow-sm">
         <div className="border-b border-slate-200 bg-white px-5 py-4">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

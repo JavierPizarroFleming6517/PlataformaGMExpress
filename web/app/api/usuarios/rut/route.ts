@@ -18,7 +18,6 @@ export async function PATCH(request: Request) {
   } catch (error: any) {
     console.error('[API GUARDAR RUT] Error:', error);
     
-    // 🔥 MAGIA AQUÍ: Si el error es por RUT duplicado, avisamos al frontend
     if (error.code === 'P2002') {
       return NextResponse.json({ error: 'Este RUT ya se encuentra registrado en otra cuenta.' }, { status: 409 });
     }

@@ -22,7 +22,7 @@ export async function GET(request: Request) {
         empresa: {
           select: { 
             nombre: true,
-            ConvenioEmpresa: true // 🔥 ESTA ES LA LÍNEA MÁGICA QUE FALTABA
+            ConvenioEmpresa: true
           }
         }
       }

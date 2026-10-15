@@ -24,7 +24,6 @@ export const useTrabajadores = (empresaId: number | null, fechaSeleccionada?: st
       setCargando(true);
 
       try {
-        // Obtener resumen de la empresa
         const resumenUrl = `${API_BASE_URL}/api/representante/resumen?empresaId=${empresaId}`;
         const resumenRes = await fetch(resumenUrl);
         const resumenData = resumenRes.ok ? await resumenRes.json() : null;
@@ -32,7 +31,6 @@ export const useTrabajadores = (empresaId: number | null, fechaSeleccionada?: st
           setResumenEmpresa(resumenData);
         }
 
-        // Obtener empleados con pedidos de la semana
         let empleadosUrl = `${API_BASE_URL}/api/representante/empleados?empresaId=${empresaId}`;
         if (fechaSeleccionada) {
           empleadosUrl += `&fecha=${fechaSeleccionada}`;

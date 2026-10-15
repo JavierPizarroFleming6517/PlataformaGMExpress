@@ -1,4 +1,3 @@
-// src/components/CalendarioSemanal.tsx
 import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { THEME } from '../constants/theme';

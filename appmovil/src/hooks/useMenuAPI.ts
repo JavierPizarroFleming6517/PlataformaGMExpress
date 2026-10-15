@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../constants/api";
 
-// ─── TIPOS ────────────────────────────────────────────────────────────────────
 
 export interface Guarnicion {
   id:     number;
@@ -39,20 +38,13 @@ export interface MenuDia {
 
 const MENU_VACIO: MenuDia = { entradas: [], fondos: [], postres: [], menuDia: null };
 
-// ─── HOOK ─────────────────────────────────────────────────────────────────────
 
-/**
- * Carga el menú para una fecha dada en formato "YYYY-MM-DD".
- * Sin argumento → usa el día actual (calculado por el servidor).
- *
- * Se vuelve a ejecutar automáticamente cuando cambia `fecha`.
- */
 export const useMenuAPI = (fecha?: string, usuarioId?: string) => {
   const [menuHoy, setMenuHoy] = useState<MenuDia>(MENU_VACIO);
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    let cancelado = false; // evita set de estado si el componente se desmontó
+    let cancelado = false;
 
     const cargarMenu = async () => {
       setCargando(true);
@@ -84,9 +76,9 @@ export const useMenuAPI = (fecha?: string, usuarioId?: string) => {
     cargarMenu();
 
     return () => {
-      cancelado = true; // cleanup al desmontar o cuando cambia fecha
+      cancelado = true;
     };
-  }, [fecha, usuarioId]); // se re-ejecuta cuando cambia fecha o usuario
+  }, [fecha, usuarioId]);
 
   return { menuHoy, cargando };
 };

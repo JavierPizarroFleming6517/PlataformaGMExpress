@@ -45,17 +45,14 @@ const HomePageRepresentante: React.FC<HomePageRepresentanteProps> = ({ empresaId
     }
   };
 
-  // 🔥 LÓGICA DE ESTADÍSTICAS CORREGIDA
   const totalPedidos = trabajadores.reduce((acc, t) => acc + (t.pedidos?.length || 0), 0);
   
   const pedidosConfirmados = trabajadores.reduce((acc, t) => 
     acc + (t.pedidos?.filter((p: any) => p.estado === 'CONFIRMADO').length || 0)
   , 0);
   
-  // En lugar de buscar la palabra "PENDIENTE", verificamos matemáticamente si faltan por confirmar
   const faltanConfirmar = totalPedidos > 0 && pedidosConfirmados < totalPedidos;
   
-  // Solo está completado si hay pedidos y todos coinciden
   const estaCompletado = totalPedidos > 0 && pedidosConfirmados === totalPedidos;
   const tieneEmpresa = Boolean(empresaId);
 
@@ -192,7 +189,7 @@ const HomePageRepresentante: React.FC<HomePageRepresentanteProps> = ({ empresaId
               <Send size={16} />
               Esperando pedidos
             </button>
-          ) : faltanConfirmar ? ( // 🔥 AQUÍ USAMOS LA VARIABLE NUEVA
+          ) : faltanConfirmar ? (
             <button 
               onClick={manejarEnviarTodo}
               disabled={enviandoTodo}

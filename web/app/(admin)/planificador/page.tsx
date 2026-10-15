@@ -212,7 +212,7 @@ export default function PlanificadorPage() {
 
   return (
     <div className="mx-auto max-w-[1600px] space-y-4 p-6 bg-slate-50 min-h-screen">
-      {/* Header Corporativo */}
+      
       <header className="border-b border-slate-200 pb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -228,7 +228,7 @@ export default function PlanificadorPage() {
         </div>
       </header>
 
-      {/* Tarjeta de Importación de Excel */}
+      
       <Card className="overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm">
         <div className="h-1 w-full bg-[#1B2C56]"></div>
         <CardContent className="p-0">
@@ -305,7 +305,7 @@ export default function PlanificadorPage() {
         </CardContent>
       </Card>
 
-      {/* Sección Gestión de Semanas */}
+      
       <section className="overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm">
         <button
           type="button"
@@ -409,7 +409,7 @@ export default function PlanificadorPage() {
         )}
       </section>
 
-      {/* Programación Diaria */}
+      
       <section className="space-y-4 rounded-md border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between border-b border-slate-100 pb-4">
           <div>
@@ -535,7 +535,7 @@ export default function PlanificadorPage() {
                     </div>
                   ) : (
                     <div className="mt-2 grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-4">
-                      {/* Entradas */}
+                      
                       <div className="space-y-3">
                         <div className="border-b border-slate-200 pb-2">
                           <p className="text-xs font-bold text-[#1B2C56] uppercase tracking-widest">1. Entrada</p>
@@ -604,7 +604,7 @@ export default function PlanificadorPage() {
                         )}
                       </div>
 
-                      {/* Fondos */}
+                      
                       <div className="space-y-3">
                         <div className="border-b border-slate-200 pb-2">
                           <p className="text-xs font-bold text-[#1B2C56] uppercase tracking-widest">2. Fondo & Guarnición</p>
@@ -684,7 +684,7 @@ export default function PlanificadorPage() {
                         )}
                       </div>
 
-                      {/* Postres */}
+                      
                       <div className="space-y-3">
                         <div className="border-b border-slate-200 pb-2">
                           <p className="text-xs font-bold text-[#1B2C56] uppercase tracking-widest">
@@ -712,7 +712,7 @@ export default function PlanificadorPage() {
                         )}
                       </div>
 
-                      {/* Bebida */}
+                      
                       <div className="space-y-3">
                         <div className="border-b border-slate-200 pb-2">
                           <p className="text-xs font-bold text-[#1B2C56] uppercase tracking-widest">4. Bebida especial del día</p>

@@ -32,11 +32,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // Forzamos las rutas directamente en el componente
     <ClerkProvider
       signInUrl="/auth/login"
       signUpUrl="/auth/login"
-      signInFallbackRedirectUrl="/dashboard" // O a donde quieras que vaya al entrar
+      signInFallbackRedirectUrl="/dashboard"
     >
       <html lang="es">
         <body>{children}</body>

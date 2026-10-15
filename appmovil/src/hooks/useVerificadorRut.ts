@@ -1,4 +1,3 @@
-// src/hooks/useVerificadorRut.ts
 import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../constants/api';
 
@@ -6,7 +5,6 @@ export const useVerificadorRut = (clerkId: string | undefined) => {
   const [requiereRut, setRequiereRut] = useState(false);
   const [guardandoRut, setGuardandoRut] = useState(false);
 
-  // 1. Efecto para verificar si le falta el RUT al cargar
   useEffect(() => {
     const fetchPerfil = async () => {
       if (!clerkId) return;
@@ -14,7 +12,6 @@ export const useVerificadorRut = (clerkId: string | undefined) => {
         const res = await fetch(`${API_BASE_URL}/api/usuarios/perfil?clerkId=${clerkId}`);
         if (res.ok) {
           const data = await res.json();
-          // Si el perfil existe pero NO tiene RUT, levantamos la bandera
           if (data && !data.rut) {
             setRequiereRut(true);
           }
@@ -26,7 +23,6 @@ export const useVerificadorRut = (clerkId: string | undefined) => {
     fetchPerfil();
   }, [clerkId]);
 
-  // 2. Función para guardar el RUT nuevo
   const guardarRutAPI = async (rut: string) => {
     setGuardandoRut(true);
     try {
@@ -39,7 +35,7 @@ export const useVerificadorRut = (clerkId: string | undefined) => {
       const data = await res.json();
 
       if (res.ok) {
-        setRequiereRut(false); // Éxito: ocultamos el modal
+        setRequiereRut(false);
         return { success: true };
       } else {
         return { success: false, error: data.error || "Ocurrió un error al guardar el RUT." };

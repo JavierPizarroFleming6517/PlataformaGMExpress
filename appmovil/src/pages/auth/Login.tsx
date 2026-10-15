@@ -24,20 +24,19 @@ const Login: React.FC = () => {
 
   return (
     <div
-      className="flex flex-col items-center justify-between min-h-screen p-6" // 🔥 Cambiado justify-center a justify-between
+      className="flex flex-col items-center justify-between min-h-screen p-6"
       style={{ backgroundColor: THEME.colors.secondary }}
     >
-      {/* Ajustamos el contenedor para que tenga altura fija y margen negativo si es necesario */}
+      
       <div className="w-full max-w-[300px] h-[350px] -mt-10 mb-2 flex items-center justify-center overflow-hidden">
         <img 
           src="/GM Express Logo.png" 
           alt={`${APP_NAME} Logo`} 
-          // Usamos scale para agrandar la imagen sin afectar el layout del div padre
           className="w-full h-full object-contain scale-[1.6] drop-shadow-xl" 
         />
       </div>
 
-      {/* Añadimos -mt-16 para subir la tarjeta sin mover el logo de arriba */}
+      
       <div className="w-full max-w-md -mt-16 rounded-[32px] bg-white shadow-[0_35px_70px_-30px_rgba(0,0,0,0.4)] overflow-hidden" onClickCapture={handleNavigation}>
         {isSignUp ? (
           <SignUp routing="hash" signInUrl="#/sign-in" />

@@ -23,7 +23,6 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-// Importamos el hook que acabamos de crear
 import {
   useEmpresas,
   OPCIONES_CONVENIO,
@@ -34,7 +33,6 @@ import {
 export default function EmpresasView() {
   const router = useRouter()
   
-  // Desestructuramos todo desde nuestro hook
   const {
     empresas,
     loading,
@@ -54,13 +52,12 @@ export default function EmpresasView() {
     cambiarEstadoEmpresa,
   } = useEmpresas()
 
-  // Lógica derivada (se recalcula automáticamente)
   const totalTrabajadores = empresas.reduce((sum, e) => sum + e.trabajadores, 0)
   const empresasActivas = empresas.filter((e) => e.estado === "ACTIVA").length
 
   return (
     <div className="mx-auto w-full max-w-7xl space-y-4 p-4">
-      {/* --- CABECERA --- */}
+      
       <div className="flex flex-col gap-3 border-b border-slate-200 pb-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
@@ -84,7 +81,7 @@ export default function EmpresasView() {
         </Link>
       </div>
 
-      {/* --- TARJETAS DE ESTADÍSTICAS --- */}
+      
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <Card className="rounded-md border-slate-200 bg-white shadow-sm">
           <CardHeader className="px-4 pb-1 pt-4">
@@ -118,7 +115,7 @@ export default function EmpresasView() {
         </Card>
       </div>
 
-      {/* --- TABLA DE EMPRESAS --- */}
+      
       <Card className="overflow-hidden rounded-md border-slate-200 bg-white shadow-sm">
         <CardHeader className="border-b border-slate-200 px-4 py-3">
           <CardTitle className="flex items-center gap-2 text-sm font-semibold text-[#1B2C56]">
@@ -250,7 +247,7 @@ export default function EmpresasView() {
         </CardContent>
       </Card>
 
-      {/* --- MODAL DE CONVENIOS --- */}
+      
       {empresaConvenioSeleccionada && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
           <div className="w-full max-w-md rounded-md border border-slate-200 bg-white p-4 shadow-sm">

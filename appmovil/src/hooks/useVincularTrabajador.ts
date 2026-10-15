@@ -1,4 +1,3 @@
-// src/hooks/useVincularTrabajador.ts
 import { useState } from 'react';
 import { API_BASE_URL } from '../constants/api';
 
@@ -40,7 +39,7 @@ export const useVincularTrabajador = () => {
 
       if (res.ok) {
         alert('Trabajador vinculado exitosamente.');
-        onSuccess(); // Ejecuta la función para cerrar el modal y recargar
+        onSuccess();
       } else {
         const data = await res.json();
         alert(data.error || 'Ocurrió un error al vincular.');

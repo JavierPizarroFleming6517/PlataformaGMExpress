@@ -125,13 +125,6 @@ function formatearSeleccion(seleccion: {
   };
 }
 
-/**
- * GET /api/trabajador/menu-semanal?fecha=YYYY-MM-DD
- *
- * Devuelve { entradas, fondos, postres, menuDia } del día solicitado.
- * Las listas se mantienen para compatibilidad con el flujo personalizado.
- * Sin parámetro → día actual en zona horaria Chile (no en UTC del servidor).
- */
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);

@@ -3,9 +3,8 @@ import db from "@/lib/db";
 
 export async function PATCH(req: NextRequest) {
   try {
-    const { usuarioId, diaSemana } = await req.json(); // diaSemana: 1 (Lun) a 5 (Vie)
+    const { usuarioId, diaSemana } = await req.json();
 
-    // Buscamos al usuario actual para ver sus bloqueos
     const usuario = await db.usuario.findUnique({
       where: { id: usuarioId },
       select: { diasBloqueados: true }
@@ -15,7 +14,6 @@ export async function PATCH(req: NextRequest) {
 
     const yaBloqueado = usuario.diasBloqueados.includes(diaSemana);
     
-    // Si estaba bloqueado, lo quitamos. Si no, lo agregamos.
     const nuevosBloqueos = yaBloqueado 
       ? usuario.diasBloqueados.filter(d => d !== diaSemana)
       : [...usuario.diasBloqueados, diaSemana];

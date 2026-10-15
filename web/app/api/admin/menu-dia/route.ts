@@ -28,7 +28,7 @@ function getErrorMessage(error: unknown) {
 
 function normalizarDia(dia: string): DiaHabil | string {
   const normalized = dia
-    .replace(/Ã©/g, "é")
+    .replace(/Ã/g, "é")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();

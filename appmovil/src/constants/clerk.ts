@@ -69,7 +69,6 @@ export const CLERK_CONFIG = {
         backgroundColor: '#f9fafb',
       },
       
-      // 🔥 Mucho más limpio. La fuente rebelde la controla tu index.css
       formButtonPrimary: {
         padding: '1.15rem !important',
         borderRadius: '0.75rem !important',

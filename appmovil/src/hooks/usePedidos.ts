@@ -1,17 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { API_BASE_URL }        from '../constants/api';
 
-// ─── TIPOS ────────────────────────────────────────────────────────────────────
 
 export interface PedidoPayload {
   entradasIds: number[];
   fondoId: number | null;
   postreId: number | null;
-  jugoId: number | null; // ✅ AGREGADO PARA QUE LA API LO RECIBA
+  jugoId: number | null;
   guarnicionId: number | null;
 }
 
-// ─── HOOK ─────────────────────────────────────────────────────────────────────
 
 export const usePedidos = (usuarioId: string | undefined, fecha?: string) => {
   const [yaPedioHoy,            setYaPedioHoy]            = useState(false);
@@ -20,14 +18,12 @@ export const usePedidos = (usuarioId: string | undefined, fecha?: string) => {
   const [eliminando,            setEliminando]            = useState(false);
   const [pedidoExistente,       setPedidoExistente]       = useState<any | null>(null);
 
-  // ── 1. EXTRAEMOS LA VERIFICACIÓN A UN CALLBACK PARA PODER REUTILIZARLA ──────
   const refrescarVerificacion = useCallback(async () => {
     if (!usuarioId) {
       setCargandoVerificacion(false);
       return;
     }
     
-    // 👇 SOLUCIÓN: Reiniciamos el estado a "Cargando" inmediatamente y limpiamos el pedido viejo
     setCargandoVerificacion(true);
     setPedidoExistente(null); 
     setYaPedioHoy(false);
@@ -45,12 +41,10 @@ export const usePedidos = (usuarioId: string | undefined, fecha?: string) => {
     }
   }, [usuarioId, fecha]);
 
-  // ── 2. EL USE EFFECT AHORA SOLO LLAMA AL CALLBACK ───────────────────────────
   useEffect(() => {
     refrescarVerificacion();
   }, [refrescarVerificacion]);
 
-  // ── Enviar nuevo pedido (Lógica original intacta) ───────────────────────────
   const enviarPedido = async (pedido: PedidoPayload): Promise<boolean> => {
     if (!usuarioId) return false;
 
@@ -61,8 +55,7 @@ export const usePedidos = (usuarioId: string | undefined, fecha?: string) => {
         entradasIds: pedido.entradasIds,
         fondoId: pedido.fondoId,
         postreId: pedido.postreId,
-        jugoId: pedido.jugoId, // ✅ SE AÑADIÓ PARA ENVIARLO AL SERVIDOR
-        // Convierte el sentinel -1 (Sin guarnición) a null para el servidor
+        jugoId: pedido.jugoId,
         guarnicionId: pedido.guarnicionId === -1 ? null : pedido.guarnicionId ?? null,
         fecha: fecha ?? undefined,
       };
@@ -75,30 +68,26 @@ export const usePedidos = (usuarioId: string | undefined, fecha?: string) => {
       });
 
       if (respuesta.ok) {
-        setYaPedioHoy(true); // Bloquear UI de inmediato para la fecha actual
-        // Refrescar detalle de pedido para sincronizar UI
+        setYaPedioHoy(true);
         try {
           const check = await fetch(`${API_BASE_URL}/api/trabajador/pedidos?usuarioId=${usuarioId}${fecha ? `&fecha=${fecha}` : ''}`);
           const data = await check.json();
           setPedidoExistente(data.pedido ?? null);
         } catch (e) {
-          // ignore
         }
         return true;
       }
 
       let errorData: any = null;
-      try { errorData = await respuesta.json(); } catch (e) { /* ignore */ }
+      try { errorData = await respuesta.json(); } catch (e) 
 
-      // 403 = deadline pasado en el servidor (doble capa con el frontend)
       if (respuesta.status === 403) {
         alert('El horario de pedidos ha cerrado.');
         return false;
       }
 
-      // 409 = ya existe un pedido para hoy
       if (respuesta.status === 409) {
-        setYaPedioHoy(true); // sincronizar estado
+        setYaPedioHoy(true);
         return false;
       }
 
@@ -124,7 +113,7 @@ export const usePedidos = (usuarioId: string | undefined, fecha?: string) => {
       if (res.ok) {
         setPedidoExistente(null);
         setYaPedioHoy(false);
-        try { await refrescarVerificacion(); } catch (e) { /* ignore */ }
+        try { await refrescarVerificacion(); } catch (e) 
         return true;
       }
       return false;
@@ -136,7 +125,6 @@ export const usePedidos = (usuarioId: string | undefined, fecha?: string) => {
     }
   };
 
-  // Enviar pedidos usando un arreglo genérico de items (para Canje / Colaciones Premium / Otros)
   const enviarItems = async (items: Array<{ platoId: number; guarnicionId?: number | null; cantidad?: number }>): Promise<boolean> => {
     if (!usuarioId) return false;
 
@@ -160,12 +148,12 @@ export const usePedidos = (usuarioId: string | undefined, fecha?: string) => {
           const check = await fetch(`${API_BASE_URL}/api/trabajador/pedidos?usuarioId=${usuarioId}${fecha ? `&fecha=${fecha}` : ''}`);
           const data = await check.json();
           setPedidoExistente(data.pedido ?? null);
-        } catch (e) { /* ignore */ }
+        } catch (e) 
         return true;
       }
 
       let errorData: any = null;
-      try { errorData = await respuesta.json(); } catch (e) { /* ignore */ }
+      try { errorData = await respuesta.json(); } catch (e) 
 
       if (respuesta.status === 403) {
         alert('El horario de pedidos ha cerrado.');
@@ -188,6 +176,5 @@ export const usePedidos = (usuarioId: string | undefined, fecha?: string) => {
     }
   };
 
-  // ── 3. EXPORTAMOS LA FUNCIÓN DE REFRESCO ────────────────────────────────────
   return { yaPedioHoy, pedidoExistente, cargandoVerificacion, enviarPedido, enviarItems, enviando, refrescarVerificacion, eliminarPedido, eliminando };
 };

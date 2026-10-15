@@ -47,7 +47,7 @@ export const TarjetaTrabajador: React.FC<TarjetaTrabajadorProps> = ({ trabajador
             <span className="font-black text-lg text-[#1d2d50] leading-tight capitalize">
               {nombreTrabajador.toLowerCase()}
             </span>
-            {/* 🔥 La etiqueta cambia a gris si tiene 0 pedidos */}
+            
             <span className={`text-[10px] font-black uppercase tracking-widest flex items-center gap-1 mt-1 ${pedidos.length > 0 ? 'text-[#70a344]' : 'text-gray-400'}`}>
               <span className={`w-1.5 h-1.5 rounded-full ${pedidos.length > 0 ? 'bg-[#70a344]' : 'bg-gray-300'}`}></span>
               {pedidos.length} {pedidos.length === 1 ? 'DÍA REGISTRADO' : 'DÍAS REGISTRADOS'}
@@ -61,7 +61,6 @@ export const TarjetaTrabajador: React.FC<TarjetaTrabajadorProps> = ({ trabajador
         <div className="px-5 pb-5 pt-0 border-t border-gray-50 bg-gray-50/30">
           
           {pedidos.length > 0 ? (
-            /* SI HAY PEDIDOS: Muestra las burbujas y detalles */
             <>
               <div className="flex gap-2.5 py-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
                 {pedidos.map((pedido) => {
@@ -128,7 +127,6 @@ export const TarjetaTrabajador: React.FC<TarjetaTrabajadorProps> = ({ trabajador
               )}
             </>
           ) : (
-            /* 🔥 SI NO HAY PEDIDOS: Muestra un mensaje bonito de que está vacío */
             <div className="py-8 flex flex-col items-center justify-center text-center">
               <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
                 <CalendarX2 size={20} className="text-gray-400" />

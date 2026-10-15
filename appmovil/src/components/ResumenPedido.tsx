@@ -1,4 +1,3 @@
-// src/components/ResumenPedido.tsx
 import React from 'react';
 import { CheckCircle2, Trash2 } from 'lucide-react';
 

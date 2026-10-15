@@ -1,7 +1,5 @@
-// web/app/auth/login/page.tsx
 "use client";
 import { SignIn } from "@clerk/nextjs";
-// Ajusta la ruta de importación si tu carpeta lib está en otro nivel
 import { clerkAppearance } from "@/lib/clerk";
 
 export default function LoginPage() {
