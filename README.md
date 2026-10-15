@@ -27,9 +27,9 @@ La autenticación es de Clerk. El webhook de Clerk crea y actualiza el usuario e
 
 | Persona | Rol |
 | --- | --- |
-| Javier Pizarro Fleming | Full Stack Developer |
-| Brian | Desarrollo |
-| Equipo de desarrollo | Diseño, implementación y operación de la plataforma |
+| Javier Pizarro | Full Stack Developer |
+| Bryan Carvajal | Full Stack Developer |
+| Matias Gutierrez | Full Stack Developer |
 
 ## Stack tecnológico
 
